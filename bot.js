@@ -81,7 +81,7 @@ client.unload = command => {
     }
   });
 };
-//////
+//--------------------------------------------------//
 client.on('ready', async ready => {
 	console.log(`${client.user.tag} Adlı Botum Aktif`);
 
