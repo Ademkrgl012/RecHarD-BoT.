@@ -6,6 +6,18 @@ const { MessageEmbed } = 'discord.js';
 const express = require('express');
 const db = require('quick.db');
 const fs = require('fs');
+
+client.commands= new Discord.Collection(); // komutları alıyoruz
+
+
+const commandFiles = readdirSync(join(__dirname, "komutlar")).filter(file => file.endsWith(".js")); // Belli bir klasörden belli .js uzantılı dosyaları buluyor.
+
+for (const file of commandFiles) {
+    const command = require(join(__dirname, "komutlar", `${file}`));
+    client.commands.set(command.kod, command); // Komutları Ayarlıyoruz.
+}
+
+client.on("error", console.error);
 //////
 client.on('ready', async ready => {
 	console.log(`${client.user.tag} Adlı Botum Aktif`);
@@ -268,15 +280,15 @@ client.on('message', async msg => {
 client.on('message', async message => {
 	if (message.author.bot) return;
 	if (!message.guild) {
-		const PREFIX = 'r!';
-	} else if (db.has('PREFIX' + message.guild.id)) {
-		var PREFIX = db.fetch('PREFIX' + message.guild.id);
+    var prefix = 'r!';
+	} else if (db.has('prefix' + message.guild.id)) {
+		var prefix = db.fetch('prefix' + message.guild.id);
 	} else {
-		const PREFIX = 'r!';
+    var prefix = 'r!';
 	}
-	if (message.content.startsWith(PREFIX)) {
+	if (message.content.startsWith(prefix)) {
 		const args = message.content
-			.slice(PREFIX.length)
+			.slice(prefix.length)
 			.trim()
 			.split(/ +/);
 
