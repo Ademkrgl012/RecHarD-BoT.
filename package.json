@@ -1,7 +1,7 @@
 {
-  "name": "hello-express",
+  "name": "Rechard Bot",
   "version": "0.0.1",
-  "description": "CodeWork v12 Boş Altyapı",
+  "description": "Rechard Bot",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
@@ -32,7 +32,7 @@
     "caseless": "^0.12.0",
     "chalk": "^4.1.1",
     "cheerio": "^1.0.0-rc.9",
-    "cheerio-select": "^1.4.0",
+    "cheerio-select": "^1.5.0",
     "chownr": "^2.0.0",
     "code-point-at": "^1.1.0",
     "color-convert": "^2.0.1",
@@ -208,5 +208,5 @@
   "devDependencies": {},
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
