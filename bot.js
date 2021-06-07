@@ -28,14 +28,22 @@ client.on('ready', async ready => {
 		'r!davet',
 		'Sahibim: Adem BUT Yalnız Olan#1881'
 	];
+  var randomDurumlar = [
+    'online',
+    'dnd',
+    'idle'
+    ];
 	setInterval(function() {
 		var randomMesajlar1 =
 			randomMesajlar[Math.floor(Math.random() * randomMesajlar.length)];
 		client.user.setActivity(`${randomMesajlar1}`);
 	}, 2 * 2500);
-
-	client.user.setStatus('idle');
-});
+  setInterval(function() {
+    var randomDurumlar1 =
+        randomDurumlar[Math.floor(Math.random() * randomDurumlar.lenght)];
+	client.user.setStatus(`${randomDurumlar1}`);
+  }, 2 * 2500);
+  });
 
 /////////KOMUTLAR;
 
