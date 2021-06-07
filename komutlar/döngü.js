@@ -1,6 +1,6 @@
 module.exports = {
-  name: "döngü",
-  run (client, message, args) {
+ kod: "döngü",
+  async run(client, message, args) {
     
     const { channel } = message.member.voice;
     if (!channel) { //ArdaDemr Youtube kanalında paylaşılmış altyapı

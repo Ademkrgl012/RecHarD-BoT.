@@ -1,6 +1,6 @@
 module.exports = {
-  name: "durdur",
-   run (client, message, args) {
+  kod: "durdur",
+   async run(client, message, args) {
   const { channel } = message.member.voice;
     if (!channel) {
     

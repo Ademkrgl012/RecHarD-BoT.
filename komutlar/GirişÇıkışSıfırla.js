@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const db = require("quick.db");
 module.exports = {
-  name: "gç-sıfırla",
+  kod: "gç-sıfırla",
 async run(client, message, args){
   if (!message.member.hasPermission("MANAGE_GUILD"))
     return message.reply(

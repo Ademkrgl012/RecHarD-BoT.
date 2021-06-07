@@ -1,7 +1,7 @@
 module.exports = {
-  name: "devam", 
+  kod: "devam", 
   description: "Resume the paused Song",
-  run (client, message, args) {
+  async run(client, message, args) {
       const { channel } = message.member.voice;
     if (!channel) {
     //ArdaDemr Youtube kanalında paylaşılmış altyapı

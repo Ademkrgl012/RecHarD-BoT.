@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 module.exports = {
-  name: "davet",
+  kod: "davet",
   async run(client, message, args){
   const embed = new MessageEmbed()
   .setTitle("Davet Linkleri Altta Belirtilmiştir")

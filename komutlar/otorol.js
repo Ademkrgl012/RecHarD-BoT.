@@ -1,7 +1,7 @@
 const db = require('quick.db');
 const Discord = require('discord.js')
 module.exports = {
-  name: "otorol",
+  kod: "otorol",
 async run(client, message, args){
 let rol = message.mentions.roles.first()
 let kanal = message.mentions.channels.first()

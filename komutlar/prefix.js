@@ -1,7 +1,7 @@
 const db = require("quick.db")
 const { MessageEmbed } = require('discord.js')
 module.exports = {
-  name: "prefix-ayarla",
+  kod: "prefix-ayarla",
   async run(client, message, args){
     if (!message.member.hasPermission("ADMINISTRATOR"))return message.channel.send('Bu Komudu Kullanabilmek İçin Yeterli Yetkiye Sahip Değilsin')
     if (!args[0]) return message.channel.send('Lütfen Geçerli Bir Prefix Girin')
