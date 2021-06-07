@@ -1,9 +1,6 @@
 const fetch = require('node-fetch');
 const Discord = require('discord.js');
-
-module.exports = {
-  kod: "korona",
-async run(client, message, args){
+exports.run = async(client, message, args) => {
 
 fetch(`https://covid19.mathdro.id/api/countries/tr`)
 .then(response => response.json())
@@ -23,4 +20,12 @@ const ardademr = new Discord.MessageEmbed()
      message.reply(ardademr)
         })
     }
-    }
+    exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['corona'],
+  perm: 0
+}
+exports.help = {
+  name: 'korona'
+}

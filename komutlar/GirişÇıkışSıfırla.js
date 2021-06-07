@@ -26,9 +26,9 @@ exports.run = async(client, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['abone-log'],
+  aliases: ['Giriş-Çıkış-Sıfırla'],
   perm: 0
 }
 exports.help = {
-  name: 'abonelog'
+  name: 'gç-sıfırla'
 }

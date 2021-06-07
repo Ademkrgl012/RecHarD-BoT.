@@ -1,7 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-module.exports = {
-  kod: "davet",
-  async run(client, message, args){
+  exports.run = async(client, message, args) => {
   const embed = new MessageEmbed()
   .setTitle("Davet Linkleri Altta Belirtilmiştir")
   .setColor("RANDOM")
@@ -11,4 +9,12 @@ module.exports = {
     .setFooter(`${message.author.tag} Tarafından İstendi.`, message.author.avatarURL())
     message.author.send(embed)
 }
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['invite'],
+  perm: 0
+}
+exports.help = {
+  name: 'davet'
 }

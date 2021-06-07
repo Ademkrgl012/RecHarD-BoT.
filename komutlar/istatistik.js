@@ -2,9 +2,7 @@ const Discord = require("discord.js");
 const moment = require("moment");
 const os = require("os");
 require("moment-duration-format");
-module.exports = {
-  kod: "istatistik",
-async run(client, message, args){
+exports.run = async(client, message, args) => {
   const seksizaman = moment
     .duration(client.uptime)
     .format(" D [gün], H [saat], m [dakika], s [saniye]");
@@ -28,4 +26,12 @@ async run(client, message, args){
     .addField("» **İşletim Sistemi**", `\`\`${os.platform()}\`\``, true)
   return message.channel.send(istatistikler);
 }
-};
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['i'],
+  perm: 0
+}
+exports.help = {
+  name: 'istatistik'
+}

@@ -1,6 +1,4 @@
-module.exports = {
-  kod: "kuyruk",
-  async run(client, message, args){
+exports.run = async(client, message, args) => {
     const { channel } = message.member.voice;
     if (!channel) {
       //ArdaDemr Youtube kanalında paylaşılmış altyapı
@@ -20,4 +18,12 @@ module.exports = {
       { split: true }
     );
   }
-};
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['kur'],
+  perm: 0
+}
+exports.help = {
+  name: 'abonelog'
+}

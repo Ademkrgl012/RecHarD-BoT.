@@ -1,6 +1,4 @@
-module.exports = {
- kod: "döngü",
-  async run(client, message, args) {
+exports.run = async(client, message, args) => {
     
     const { channel } = message.member.voice;
     if (!channel) { //ArdaDemr Youtube kanalında paylaşılmış altyapı
@@ -25,4 +23,12 @@ module.exports = {
     
     
   }
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['döngü'],
+  perm: 0
+}
+exports.help = {
+  name: 'döngü'
 }

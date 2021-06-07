@@ -1,7 +1,4 @@
-module.exports = {
-  kod: "devam", 
-  description: "Resume the paused Song",
-  async run(client, message, args) {
+exports.run =   asyun(client, message, args=> ) {
       const { channel } = message.member.voice;
     if (!channel) {
     //ArdaDemr Youtube kanalında paylaşılmış altyapı
@@ -20,5 +17,13 @@ module.exports = {
     
     message.channel.send("**Duraklatılan bir şarkı yok.**")
     
-  }
+  exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['devam'],
+  perm: 0
+}
+exports.help = {
+  name: 'devam'
+}
 }

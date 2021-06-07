@@ -1,6 +1,4 @@
-module.exports = {
-  kod: "durdur",
-   async run(client, message, args) {
+exports.run = a asyun(client, message, args=> ) {
   const { channel } = message.member.voice;
     if (!channel) {
     
@@ -20,5 +18,13 @@ module.exports = {
       
       return message.channel.send("✅ **| Oynatılan şarkı duraklatıldı.**")
   }  
-  }
+  exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['durdur'],
+  perm: 0
+}
+exports.help = {
+  name: 'duraklat'
+}
 }
