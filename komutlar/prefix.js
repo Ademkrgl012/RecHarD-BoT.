@@ -1,8 +1,6 @@
 const db = require("quick.db")
 const { MessageEmbed } = require('discord.js')
-module.exports = {
-  kod: "prefix-ayarla",
-  async run(client, message, args){
+exports.run = async(client, message, args) => {
     if (!message.member.hasPermission("ADMINISTRATOR"))return message.channel.send('Bu Komudu Kullanabilmek İçin Yeterli Yetkiye Sahip Değilsin')
     if (!args[0]) return message.channel.send('Lütfen Geçerli Bir Prefix Girin')
     const eskiprefix = db.has("prefix" + message.guild.id) ? db.fetch("prefix" + message.guild.id) : "Yok"
@@ -15,4 +13,12 @@ module.exports = {
     .setFooter("Prefix Sıfırlamak İçin " + args.join(" ") + "prefix-sıfırla Yazabilirsiniz")
     message.channel.send(embed)
   }
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['prefix-ayarla'],
+  perm: 0
+}
+exports.help = {
+  name: 'prefix-ayarla'
 }

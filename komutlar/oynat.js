@@ -1,11 +1,6 @@
 const player = require('discordjs-ytdl-advanced')
 const { MessageEmbed } = require('discord.js')
-
-module.exports = {
-  
-
-kod: "oynat",
-async run(client, message, args){
+exports.run = async(client, message, args) => {
   if(!message.member.voice.channel) return message.channel.send('Bir Sesli Kanala Gir')
   if (!args[0]) return message.channel.send('Lütfen Bir Şarkı İsmi Girin!')
   if (message.member.voice.channel){
@@ -22,6 +17,5 @@ message.channel.send(embed)
 şarkı.on('finish', () => {
   return message.channel.send('Şarkı Bittiği Için Sesli Odadan Çıktım')
 })
-}
 }
 }

@@ -1,9 +1,7 @@
 const discord = require('discord.js')
 const client = new discord.Client();
 const button = require('discord-buttons')(client);
-module.exports = {
-  name: "rol",
-  async run(client, message, args){
+exports.run = async(client, message, args) => {
 
   let rol = message.mentions.roles.first()
   let mesaj = args.slice(1).join(' ');
@@ -30,4 +28,12 @@ button.clicker.member.roles.add({rol})
     }
     }
      }
-      };
+      exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['rol'],
+  perm: 0
+}
+exports.help = {
+  name: 'rol'
+}

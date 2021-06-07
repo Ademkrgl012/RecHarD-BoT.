@@ -1,8 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 const db = require('quick.db')
-module.exports = {
-  name: "reklam-engel",
-  async run(client, message, args){
+exports.run = async(client, message, args) => {
 if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('Bu Komudu Kullanabilmek İçin `YÖNETİCİ` İznine Sahip Olmalısın!')
 if (!args[0]) return message.channel.send('Lütfen `aç` Ya Da `kapat` Yazınız')
 let ayar = args[0].toLowerCase()
@@ -18,6 +16,7 @@ if (ayar === 'aç'){
   if (!db.fetch("reklam" + message.guild.id)) return message.reply('Reklam Engel Ayarı Bu Sunucuda Zaten Kapalı')
   db.delete("reklam" + message.guild.id)
   //////Kapatıldığındaki Embed
+  const embed = new MessageEmbed()
   .setTitle('Reklam-Engel Ayarı Değiştirildi')
   .setDescription('Başarı İle Sunucunuzun `reklam-engel` Ayarı `kapatıldı.`.')
   .setColor('RANDOM')
@@ -26,4 +25,12 @@ if (ayar === 'aç'){
   message.reply('Geçersiz Ayar Lütfen `aç` Ya Da `kapat` Yazınız')
 }
 }
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['reklam-engel'],
+  perm: 0
+}
+exports.help = {
+  name: 'reklam-engel'
 }

@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
 const { oneLine, stripIndents } = require('common-tags');
-module.exports = {
-  name: "say",
-async run(client, message, args){
+exports.run = async(client, message, args) => {
 
 if(!["31D"].some(role => message.member.roles.cache.get(role)) && (!message.member.hasPermission("ADMINISTRATOR"))) 
 return message.channel.send(new Discord.MessageEmbed().setDescription(`${message.author} Komutu kullanmak için yetkin bulunmamakta.`).setColor('0x800d0d').setAuthor(message.member.displayName, message.author.avatarURL()({ dynamic: true })).setTimestamp()).then(x => x.delete({timeout: 5000}));
@@ -164,4 +162,12 @@ const embed1 = new Discord.MessageEmbed()
 msg.channel.send(embed1);
   
   }
-};
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['say'],
+  perm: 0
+}
+exports.help = {
+  name: 'say'
+}

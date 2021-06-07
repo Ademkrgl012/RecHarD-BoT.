@@ -1,6 +1,4 @@
-module.exports = {
-  kod: "np",
-  async run(client, message, args) {
+exports.run = async(client, message, args) => {
     
       const { channel } = message.member.voice;
     if (!channel) {
@@ -20,4 +18,12 @@ module.exports = {
     
     
   }
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['nowplaying'],
+  perm: 0
+}
+exports.help = {
+  name: 'np'
 }

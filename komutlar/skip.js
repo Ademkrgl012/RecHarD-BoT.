@@ -1,6 +1,4 @@
-module.exports = {
-  name: "atla",
-  run (client, message, args) {
+exports.run = async(client, message, args) => {
     const { channel } = message.member.voice;
 
     if (!channel) {
@@ -17,4 +15,12 @@ module.exports = {
     serverQueue.connection.dispatcher.end();
     message.channel.send("✔ **| Şarkı geçildi.**");
   }
-};
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['skip'],
+  perm: 0
+}
+exports.help = {
+  name: 'atla'
+}

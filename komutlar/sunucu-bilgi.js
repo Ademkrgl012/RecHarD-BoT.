@@ -1,7 +1,5 @@
 const Discord = require('discord.js');
-module.exports = {
-  name: "sunucu-bilgi",
-async run(client, message, args){
+async(client, message, args){
 
 function checkDays(date) {
             let now = new Date();

@@ -1,8 +1,6 @@
 const Discord = require('discord.js');
 const db = require('quick.db')
-module.exports = {
-  name: "sil",
-async run(client, message, args){
+exports.run = async(client, message, args) => {
   if (!message.member.hasPermission("ADMINISTRATOR"))return message.channel.send('Bu Komudu Kullanabilmek İçin Yeterli `Yetkiye` Sahip Değilsin')
   const sayi = args[0]
   if (sayi > 100) return message.channel.send("En Az `1 - 100` arasında bir sayı belirtmelisin.")
@@ -16,4 +14,12 @@ async run(client, message, args){
     message.reply(`${jzmesaj.size} adet mesaj silindi!`)
   
  }
- };
+ exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['sil'],
+  perm: 0
+}
+exports.help = {
+  name: 'sil'
+}

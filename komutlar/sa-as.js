@@ -1,8 +1,6 @@
 const db = require('quick.db')
 const { MessageEmbed } = require('discord.js')
-module.exports = {
-  name: "sa-as",
-  async run(client, message, args){
+exports.run = async(client, message, args) => {
     if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('Bu Komudu Kullanabilmek İçin `Mesajları Yönet` Yetkisine Sahip Olmalısın!')
     if (!args[0]) return message.channel.send('Lütfen `aç` Ya Da `kapat` Yazınız')
     let ayar = args[0].toLowerCase()
@@ -25,4 +23,12 @@ module.exports = {
       message.reply("Geçersiz Ayar Lütfen `aç` Veya `kapat` Yazınız.")
     }
   }
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['sa-as'],
+  perm: 0
+}
+exports.help = {
+  name: 'sa-as'
 }
