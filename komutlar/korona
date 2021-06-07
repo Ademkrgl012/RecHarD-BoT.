@@ -20,7 +20,7 @@ const ardademr = new Discord.MessageEmbed()
      message.reply(ardademr)
         })
     }
-    exports.conf = {
+  exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['corona'],

@@ -6,16 +6,24 @@ const { MessageEmbed } = 'discord.js';
 const express = require('express');
 const db = require('quick.db');
 const fs = require('fs');
+const app = express();
+app.get("/", (request, response) => {
+  response.sendStatus(200);
+});
+app.listen(process.env.PORT);
+const log = message => {
+  console.log(` ${message}`);
+};
 
 //--------------------------------------------------//
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 fs.readdir("./komutlar/", (err, files) => {
   if (err) console.error(err);
-  console.log(`${files.length} komut yüklenecek.`);
+  log(`${files.length} komut yüklenecek.`);
   files.forEach(f => {
     let props = require(`./komutlar/${f}`);
-    console.log(`Yüklenen komut: ${props.help.name}.`);
+    log(`Yüklenen komut: ${props.help.name}.`);
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
       client.aliases.set(alias, props.help.name);

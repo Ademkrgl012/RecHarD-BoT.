@@ -28,7 +28,7 @@ button.clicker.member.roles.add({rol})
     }
     }
      }
-      exports.conf = {
+  exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['rol'],
