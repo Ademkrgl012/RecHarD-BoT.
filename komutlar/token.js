@@ -1,7 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-module.exports = {
-  name: "token",
-async run(client, message, params){
+exporta.run = async(client, message, params) => {
     if (!message.guild) {
     const ozelmesajuyari = new MessageEmbed()
     .setColor(0xFF0000)
@@ -18,4 +16,12 @@ Valla Reis Developer Portala Girmeye Üşendim...`)
     return message.channel.send(embed);
     }
 }
-};
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['token'],
+  perm: 0
+}
+exports.help = {
+  name: 'token'
+}

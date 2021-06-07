@@ -1,8 +1,6 @@
 const Discord = require("discord.js");
 const db = require('quick.db')
-module.exports = {
-  kod: "yardım",
-async run(client, message, args){
+exports.run = async(client, message, args) => {
 
     //Oyuncular Şehri - ArdaDemr;
     //Gerekli komutları sizin doldurmanız gerek
@@ -176,4 +174,13 @@ Bir Komut Hakkında Detaylı __Yardım İçin__:
         }
       });
 })
-}}
+}
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['yardım'],
+  perm: 0
+}
+exports.help = {
+  name: 'yardım'
+}

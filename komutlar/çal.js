@@ -5,9 +5,7 @@ const YoutubeAPI = require("simple-youtube-api");
 const youtube = new YoutubeAPI(YOUTUBE_API_KEY);
 const Discord = require('discord.js')
 const { play } = require("../system/music.js") 
-module.exports = {
-  kod: "çal",
-  async run(client, message, args){
+exports.run = async(client, message, args) => {
 
     const { channel } = message.member.voice;
     if (!channel) {
@@ -134,4 +132,12 @@ module.exports = {
      //ArdaDemr Youtube kanalında paylaşılmış altyapı
     
   }
-};
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['play', 'p', 'oynat', 'ç'],
+  perm: 0
+}
+exports.help = {
+  name: 'çal'
+}

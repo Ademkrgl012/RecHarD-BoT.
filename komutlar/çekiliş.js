@@ -1,9 +1,7 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 const ms = require('ms')
-module.exports = {
-  name: "çekiliş",
-async run(client, message){
+exports.run = async(client, message) => {
 var time = moment().format('Do MMMM YYYY , hh:mm');
 var room;
 var title;
@@ -95,4 +93,13 @@ var filter = m => m.author.id === message.author.id;
     });
 
 
-}};
+}
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['çekiliş'],
+  perm: 0
+}
+exports.help = {
+  name: 'çekiliş'
+}

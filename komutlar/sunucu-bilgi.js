@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-async(client, message, args){
+exports.run = async(client, message, args) => {
 
 function checkDays(date) {
             let now = new Date();
@@ -49,4 +49,12 @@ let sunucu = new Discord.MessageEmbed()
         return yukleniyor.edit('', sunucu);
 
 }
-};
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: ['sunucu-istatistik'],
+  perm: 0
+}
+exports.help = {
+  name: 'sunucu-bilgi'
+}
