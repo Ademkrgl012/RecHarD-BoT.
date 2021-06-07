@@ -316,4 +316,5 @@ try {
     }
 })
 
-////////;cClient.login(process.env.Token);
+////////
+client.login(process.env.Token);

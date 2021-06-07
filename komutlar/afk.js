@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const db = require("quick.db");
-async(client, message, args) => {
+module.exports = {
+  kod: "afk",
+async run(client, message, args){
     if(message.channel.type=="dm") return message.channel.send("Dm'de kullanılamaz.")
         if(message.author.username.startsWith("[AFK]")) return false;
         if(!message.member.guild.me.hasPermission("MANAGE_NICKNAMES")) return message.channel.send("Bu komut için ``İsimleri yönet`` yetkisine ihtiyacım var")
@@ -26,12 +28,4 @@ async(client, message, args) => {
          rMember.setNickname("[AFK]"+knick)
         message.channel.send(`<@${message.author.id}>`+` \`${sebep}\` sebebiyle AFK.`)
 }
-exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: ['AFK'],
-  perm: 0
-}
-exports.help = {
-  name: 'afk'
 }
