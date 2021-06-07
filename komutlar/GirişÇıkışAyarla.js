@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const db = require("quick.db");
-async(client, message, args) => {
+module.exports = {
+  kod: "gç-ayarla",
+async run(client, message, args){
   if (!message.member.hasPermission("MANAGE_GUILD")) return message.reply(`Bu Komutu Kullanabilmek İçin **Yönetici** İznine Sahip Olmalısın!`);
 
   let channel = message.mentions.channels.first();
@@ -11,12 +13,4 @@ async(client, message, args) => {
   //var i = db.set(`capsE_${message.guild.id}`, "acik")
   message.channel.send(`:white_check_mark: | ** Resimli Hoşgeldin - Güle Güle kanalı ${channel} Olarak Ayarlandı.** `);
 }
-exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: ['giriş-çıkış-ayarla'],
-  perm: 0
 }
-exports.help = {
-  name: 'gç-ayarla'
-};

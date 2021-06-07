@@ -47,6 +47,7 @@ client.on('ready', async ready => {
   }, 2 * 2500);
   });
 
+
 /////////KOMUTLAR;
 
 ///////CANVASLI-GİRIŞ-ÇIKIŞ
@@ -315,6 +316,4 @@ try {
     }
 })
 
-/////////
-client.login(process.env.TOKEN);
-Client.login(process.env.Token);
+////////;cClient.login(process.env.Token);

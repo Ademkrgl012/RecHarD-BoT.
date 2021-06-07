@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const db = require("quick.db");
-async(client, message, args) => {
+module.exports = {
+  kod: "gç-sıfırla",
+async run(client, message, args){
   if (!message.member.hasPermission("MANAGE_GUILD"))
     return message.reply(
       `Bu komutu kullanabilmek için **Sunucuyu Yönet** iznine sahip olmalısın!`
@@ -23,12 +25,4 @@ async(client, message, args) => {
   message.channel.send(embed);
   return;
 }
-exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: ['Giriş-Çıkış-Sıfırla'],
-  perm: 0
-}
-exports.help = {
-  name: 'gç-sıfırla'
-}
+} 
