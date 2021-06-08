@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const db = require("quick.db");
 module.exports = {
-  kod: "gç-sıfırla",
+  name: "gç-sıfırla",
 async run(client, message, args){
   if (!message.member.hasPermission("MANAGE_GUILD"))
     return message.reply(
@@ -25,4 +25,4 @@ async run(client, message, args){
   message.channel.send(embed);
   return;
 }
-} 
+};
