@@ -1,7 +1,7 @@
 const ytdlDiscord = require("ytdl-core-discord");
 const Discord = require('discord.js')
 module.exports = {
-   async play (song, message){
+  async play(song, message) {
     const queue = message.client.queue.get(message.guild.id);
     
     if(!song) {
@@ -62,4 +62,4 @@ module.exports = {
     
     
   }
-  };
+}
