@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const moment = require('moment');
 const ms = require('ms')
 module.exports = {
-  name: "çekiliş",
-async run(client, message){
+  kod: "çekiliş",
+async execute(client, message){
 var time = moment().format('Do MMMM YYYY , hh:mm');
 var room;
 var title;

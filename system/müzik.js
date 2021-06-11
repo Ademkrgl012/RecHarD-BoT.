@@ -7,7 +7,7 @@ module.exports = {
     if(!song) {
       queue.channel.leave();
       message.client.queue.delete(message.guild.id)
-      return queue.textChannel.send("I Left the Sound Room Because The Song Was Over").catch(console.error)
+      return queue.textChannel.send("Şarkı Bittiği İçin Sesli Odadan Çıktım").catch(console.error)
     }
     
     try {
@@ -22,7 +22,7 @@ module.exports = {
       }
       
       if(error.message.includes === "copyright") {
-        return message.channel.send("This Video Cannot Be Played Due To Copyrights.")
+        return message.channel.send("Bu video telif hakları nedeni ile oynatılamıyor.")
       } else {
         console.error(error)
       }
@@ -45,16 +45,16 @@ module.exports = {
     
       queue.textChannel.send(
         new Discord.MessageEmbed()
-        .setAuthor('Playing!',message.author.avatarURL({format : "png",dynamic : true}))
+        .setAuthor('Oynatılıyor!',message.author.avatarURL({format : "png",dynamic : true}))
         .setTitle(song.title)
+                .setTitle(song.title)
         .setURL(song.url)
         .setThumbnail(song.thumbnail)
-        .addField('Channel',song.author,true)
-        .addField('Song Seconds',song.duration,true)
-        .addField('Views',song.wiews.toLocaleString(),true)
-        .addField('Like 👍',song.likes.trues,true)
-        .addField('Disslike 👎',song.likes.falses,true)
-        .setColor("ff0a0a")
+            .addField("🎵 Şarkı Adı", `\n**${song.title}**\n`)
+    .setImage(song.thumbnail)
+    .addField("<:fna_youtube:852995405305741372> Şarkı Kanalı", `\n**${song.author}**\n`)
+    .addField(":timer: Şarkı Süresi", `\n**${song.duration}**\n`)
+    .setColor('RANDOM')
       
       
       

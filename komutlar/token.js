@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-  name: "token",
-async run(client, message, params){
+  kod: "token",
+async execute(client, message, params){
     if (!message.guild) {
     const ozelmesajuyari = new MessageEmbed()
     .setColor(0xFF0000)

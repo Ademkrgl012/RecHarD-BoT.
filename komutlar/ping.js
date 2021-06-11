@@ -1,6 +1,6 @@
 module.exports = {
-  name: "ping",
-  async run(client, message, args) {
+  kod: "ping",
+  async execute(client, message, args) {
     const { MessageEmbed } = require('discord.js')
     const embed = new MessageEmbed()
     .setTitle('PİNG ÖLÇÜLÜYOR')

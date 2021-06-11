@@ -1,6 +1,6 @@
 module.exports = {
-	kod: 'avatar',
-	async run(client, message, args) {
+	kod: ['avatar', 'av'],
+	async execute(client, message, args) {
 		const { MessageEmbed } = require('discord.js');
 		const embed = new MessageEmbed()
 			.setTitle('Avatarınız Aşağıda')

@@ -2,8 +2,8 @@ const fetch = require('node-fetch');
 const Discord = require('discord.js');
 
 module.exports = {
-  name: "korona",
-async run(client, message, args){
+  kod: ["korona", "corona", "covid-19", "covid", "covid19"],
+async execute(client, message, args){
 
 fetch(`https://covid19.mathdro.id/api/countries/tr`)
 .then(response => response.json())

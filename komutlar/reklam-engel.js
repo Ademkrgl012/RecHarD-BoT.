@@ -1,8 +1,8 @@
 const { MessageEmbed } = require('discord.js')
 const db = require('quick.db')
 module.exports = {
-  name: "reklam-engel",
-  async run(client, message, args){
+  kod: "reklam-engel",
+  async execute(client, message, args){
 if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('Bu Komudu Kullanabilmek İçin `YÖNETİCİ` İznine Sahip Olmalısın!')
 if (!args[0]) return message.channel.send('Lütfen `aç` Ya Da `kapat` Yazınız')
 let ayar = args[0].toLowerCase()

@@ -1,6 +1,6 @@
 module.exports = {
-  name: "yetkili-etiket",
-  async run(client, message, args){
+  kod: "yetkili-etiket",
+  async execute(client, message, args){
     const db = require('quick.db')
     if (!message.member.hasPermission("ADMINISTATOR")) return message.channel.send("Bu Komudu Kullanabilmek İçin Yetkin Yok")
     if (!args[0])return message.reply("Geçersiz Ayar Lütfen `aç` Ya Da `kapat` Yazınız")

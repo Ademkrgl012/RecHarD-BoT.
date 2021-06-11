@@ -1,6 +1,7 @@
+const { MessageEmbed } = require('discord.js')
 module.exports = {
-  name: "kuyruk",
-  run (client, message, args){
+  kod: "kuyruk",
+  execute (client, message, args){
     const { channel } = message.member.voice;
     if (!channel) {
       //ArdaDemr Youtube kanalında paylaşılmış altyapı
@@ -13,11 +14,12 @@ module.exports = {
       return message.channel.send("**Kuyrukta şarkı bulamadım.**");
     } //ArdaDemr Youtube kanalında paylaşılmış altyapı
 
-    message.channel.send(
-      `${serverQueue.songs
+    const embed = new MessageEmbed()
+      .addField(`${serverQueue.songs
         .map((song, index) => index + 1 + ". " + song.title)
         .join("\n\n")}`,
       { split: true }
     );
+    message.channel.send
   }
 };

@@ -1,8 +1,8 @@
 const db = require('quick.db');
 const Discord = require('discord.js')
 module.exports = {
-  name: "otorol",
-async run(client, message, args){
+  kod: "otorol",
+async execute(client, message, args){
 let rol = message.mentions.roles.first()
 let kanal = message.mentions.channels.first()
 if (!message.member.hasPermission("ADMINISTRATOR"))return message.channel.send('Bu Komudu Kulllanmak İçin Gerekli `Yetkiye` Sahip Değilsin!')

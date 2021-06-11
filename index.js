@@ -1,19 +1,49 @@
 const Discord = require('discord.js'); // discord.js modülü tanımlıyoruz.
-const client = new Discord.Client();
+const client = new Discord.Client({
+	messageCacheMaxSize: 1000,
+	messageCacheLifetime: 43200,
+        messageSweepInterval: 4600,
+    ws: { 
+    intents: ["GUILD_MEMBERS", "GUILD_WEBHOOKS", "GUILD_VOICE_STATES", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING", "GUILDS", "GUILD_BANS", "GUILD_EMOJIS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING"] 
+  },
+});
 const { readdirSync } = require('fs');
 const { join } = require('path');
 const { MessageEmbed } = 'discord.js';
 const express = require('express');
 const db = require('quick.db');
 const fs = require('fs');
-client.commands = new Discord.Collection(); // komutları alıyoruz
-const commandFiles = readdirSync(join(__dirname, 'komutlar')).filter(file =>
-	file.endsWith('.js')
-); // Belli bir klasörden belli .js uzantılı dosyaları buluyor.
-for (const file of commandFiles) {
-	const command = require(join(__dirname, 'komutlar', `${file}`));
-	client.commands.set(command.kod, command); // Komutları Ayarlıyoruz.
-}
+
+client.on("warn", info => console.log(info));
+
+client.on("error", console.error)
+
+client.commands = new Discord.Collection()
+client.queue = new Map();
+const cmdFiles = readdirSync(join(__dirname, "komutlar")).filter(file => file.endsWith(".js"))
+for (const file of cmdFiles) {
+  const command = require(join(__dirname, "komutlar", `${file}`))
+  if (typeof command.kod === 'object'){
+    command.kod.forEach(x => {
+      client.commands.set(x, command)
+    })
+  } else {
+    client.commands.set(command.kod, command)
+  }
+} 
+//////
+///////Fake Ayrıl-Katıl
+client.on('message', async message => {
+if (message.content === 'fakeayrıl') { // . yerine prefixi yaz
+  client.emit('guildMemberRemove', message.member || await message.guild.fetchMember(message.author));
+    }
+});
+
+client.on('message', async message => {
+if (message.content === 'fakekatıl') { // . yerine prefixi yaz
+  client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
+    }
+});
 ////////
 client.on('ready', async ready => {
 	console.log(`${client.user.tag} Adlı Botum Aktif`);
@@ -22,7 +52,8 @@ client.on('ready', async ready => {
 		'YAPIM AŞAMASINDA',
 		'r!yardım',
 		'r!davet',
-		'Sahibim: Adem BUT Yalnız Olan#1881'
+		'Sahibim: Adem BUT Yalnız Olan#1881',
+		'İngilizce Desteği Geliyor Beklemede Kal :)'
 	];
 	setInterval(function() {
 		var randomMesajlar1 =
@@ -51,7 +82,7 @@ client.on('guildMemberRemove', async member => {
 		Font = Canvas.Font,
 		path = require('path');
 
-	var randomMsg = ['Sunucudan Ayrıldı😪'];
+	var randomMsg = ['Güle Güle Git :('];
 	var randomMsg_integer =
 		randomMsg[Math.floor(Math.random() * randomMsg.length)];
 
@@ -62,7 +93,7 @@ client.on('guildMemberRemove', async member => {
 	const ctx = canvas.getContext('2d');
 
 	const background = await Canvas.loadImage(
-		'https://cdn.discordapp.com/attachments/847971841787691068/848937892579115028/PicsArt_05-31-05.54.36.jpg'
+		'https://media.discordapp.net/attachments/850404341764325428/852307746971975720/PicsArt_06-10-12.50.55.jpg'
 	);
 	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
@@ -85,9 +116,9 @@ client.on('guildMemberRemove', async member => {
 	ctx.lineWidth = 4;
 	ctx.fill();
 	ctx.lineWidth = 4;
-	ctx.arc(485, 145, 100, 0, Math.PI * 2, true);
+	ctx.arc(482, 155, 100, 0, Math.PI * 2, true);
 	ctx.clip();
-	ctx.drawImage(avatar, 385, 45, 200, 200);
+	ctx.drawImage(avatar, 382, 55, 200, 200);
 
 	const attachment = new Discord.MessageAttachment(
 		canvas.toBuffer(),
@@ -95,7 +126,7 @@ client.on('guildMemberRemove', async member => {
 	);
 
 	canvaskanal.send(
-		msj.replace('{uye}', member).replace('{sunucu}', member.guild.name),
+		msj.replace('{uye}', member.user.tag).replace('{sunucu}', member.guild.name),
 		attachment
 	);
 	if (member.user.bot)
@@ -115,7 +146,7 @@ client.on('guildMemberAdd', async member => {
 		Font = Canvas.Font,
 		path = require('path');
 
-	var randomMsg = [`Sunucuya Katıldı😃`];
+	var randomMsg = [`Sunucuya Hoşgeldin <3`];
 	var randomMsg_integer =
 		randomMsg[Math.floor(Math.random() * randomMsg.length)];
 
@@ -125,8 +156,7 @@ client.on('guildMemberAdd', async member => {
 	const canvas = Canvas.createCanvas(960, 422);
 	const ctx = canvas.getContext('2d');
 
-	const background = await Canvas.loadImage(
-		'https://cdn.discordapp.com/attachments/847971841787691068/848937892307009536/PicsArt_05-31-05.53.56.jpg'
+	const background = await Canvas.loadImage('https://media.discordapp.net/attachments/850404341764325428/852307746656092190/PicsArt_06-10-12.51.19.jpg'
 	);
 	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
@@ -149,9 +179,9 @@ client.on('guildMemberAdd', async member => {
 	ctx.lineWidth = 4;
 	ctx.fill();
 	ctx.lineWidth = 4;
-	ctx.arc(485, 145, 100, 0, Math.PI * 2, true);
+	ctx.arc(482, 155, 100, 0, Math.PI * 2, true);
 	ctx.clip();
-	ctx.drawImage(avatar, 385, 45, 200, 200);
+	ctx.drawImage(avatar, 382, 55, 200, 200);
 
 	const attachment = new Discord.MessageAttachment(
 		canvas.toBuffer(),
@@ -164,6 +194,132 @@ client.on('guildMemberAdd', async member => {
 	);
 	if (member.user.bot)
 		return canvaskanal.send(` ${member.user.tag}, Adlı Bot Sunucuya Katıldı!`);
+});
+////////join-exit
+client.on('guildMemberRemove', async member => {
+	//let resimkanal = JSON.parse(fs.readFileSync("./ayarlar/gç.json", "utf8"));
+	//const canvaskanal = member.guild.channels.cache.get(resimkanal[member.guild.id].resim);
+	if (db.has(`gçkanal1_${member.guild.id}`) === false) return;
+	var canvaskanal = member.guild.channels.cache.get(
+		db.fetch(`gçkanal1_${member.guild.id}`)
+	);
+	if (!canvaskanal) return;
+
+	const request = require('node-superfetch');
+	const Canvas = require('canvas'),
+		Image = Canvas.Image,
+		Font = Canvas.Font,
+		path = require('path');
+
+	var randomMsg = ['Goodbye Go :('];
+	var randomMsg_integer =
+		randomMsg[Math.floor(Math.random() * randomMsg.length)];
+
+	let msj = await db.fetch(`cikisM_${member.guild.id}`);
+	if (!msj) msj = `{uye}, ${randomMsg_integer}`;
+
+	const canvas = Canvas.createCanvas(960, 422);
+	const ctx = canvas.getContext('2d');
+
+	const background = await Canvas.loadImage('https://media.discordapp.net/attachments/850404341764325428/852713916685221888/PicsArt_06-11-04.00.19.jpg'
+	);
+	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+	ctx.strokeStyle = '#74037b';
+	ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+	ctx.fillStyle = `#D3D3D3`;
+	ctx.font = `37px "Warsaw"`;
+	ctx.textAlign = 'center';
+
+	let avatarURL = member.user.displayAvatarURL({
+		format: 'png',
+		dynamic: true,
+		size: 1024
+	});
+	const { body } = await request.get(avatarURL);
+	const avatar = await Canvas.loadImage(body);
+
+	ctx.beginPath();
+	ctx.lineWidth = 4;
+	ctx.fill();
+	ctx.lineWidth = 4;
+	ctx.arc(482, 155, 100, 0, Math.PI * 2, true);
+	ctx.clip();
+	ctx.drawImage(avatar, 382, 55, 200, 200);
+
+	const attachment = new Discord.MessageAttachment(
+		canvas.toBuffer(),
+		'Rechard-Bot-Goodbye.png'
+	);
+
+	canvaskanal.send(
+		msj.replace('{uye}', member.user.tag).replace('{sunucu}', member.guild.name),
+		attachment
+	);
+	if (member.user.bot)
+		return canvaskanal.send(`${member.user.tag}, Bot named has left the server`);
+});
+
+client.on('guildMemberAdd', async member => {
+	if (db.has(`gçkanal1_${member.guild.id}`) === false) return;
+	var canvaskanal = member.guild.channels.cache.get(
+		db.fetch(`gçkanal1_${member.guild.id}`)
+	);
+
+	if (!canvaskanal || canvaskanal === undefined) return;
+	const request = require('node-superfetch');
+	const Canvas = require('canvas'),
+		Image = Canvas.Image,
+		Font = Canvas.Font,
+		path = require('path');
+
+	var randomMsg = [`Welcome to the server <3`];
+	var randomMsg_integer =
+		randomMsg[Math.floor(Math.random() * randomMsg.length)];
+
+	let paket = await db.fetch(`pakets_${member.id}`);
+	let msj = await db.fetch(`cikisM_${member.guild.id}`);
+	if (!msj) msj = `{uye}, ${randomMsg_integer}`;
+	const canvas = Canvas.createCanvas(960, 422);
+	const ctx = canvas.getContext('2d');
+
+	const background = await Canvas.loadImage('https://media.discordapp.net/attachments/850404341764325428/852713916378120252/PicsArt_06-11-03.59.21.jpg'	);
+	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+	ctx.strokeStyle = '#74037b';
+	ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+	ctx.fillStyle = `#ffffff`;
+	ctx.font = `37px "Warsaw"`;
+	ctx.textAlign = 'center';
+
+	let avatarURL = member.user.displayAvatarURL({
+		format: 'png',
+		dynamic: true,
+		size: 1024
+	});
+	const { body } = await request.get(avatarURL);
+	const avatar = await Canvas.loadImage(body);
+	ctx.beginPath();
+	ctx.lineWidth = 4;
+	ctx.fill();
+	ctx.lineWidth = 4;
+	ctx.arc(482, 155, 100, 0, Math.PI * 2, true);
+	ctx.clip();
+	ctx.drawImage(avatar, 382, 55, 200, 200);
+
+	const attachment = new Discord.MessageAttachment(
+		canvas.toBuffer(),
+		'Rechard-Bot-Welcome.png'
+	);
+
+	canvaskanal.send(
+		msj.replace('{uye}', member).replace('{sunucu}', member.guild.name),
+		attachment
+	);
+	if (member.user.bot)
+		return canvaskanal.send(` ${member.user.tag}, Bot Joined the Server!`);
 });
 ///////sa-as//////
 client.on('message', message => {
@@ -221,7 +377,7 @@ client.on('message', message => {
 ////////yetkili-etiket/////
 client.on('message', message => {
 	if (!message.guild) return;
-	if (message.member.hasPermission('ADMINISTRATOR')) return;
+	if (!message.member.hasPermission('ADMINISTRATOR')) return;
 	const etiketler = [...message.mentions.members];
 	if (etiketler < 1) return;
 	if (!db.has('yetkilietiket' + message.guild.id)) return;
@@ -276,15 +432,15 @@ client.on('message', async msg => {
 client.on('message', async message => {
 	if (message.author.bot) return;
 	if (!message.guild) {
-		const PREFIX = 'r!';
-	} else if (db.has('PREFIX' + message.guild.id)) {
-		var PREFIX = db.fetch('PREFIX' + message.guild.id);
+		var prefix = 'r!';
+	} else if (db.has('prefix' + message.guild.id)) {
+		var prefix = db.fetch('prefix' + message.guild.id);
 	} else {
-		const PREFIX = 'r!';
+		var prefix = 'r!'
 	}
-	if (message.content.startsWith(PREFIX)) {
+	if (message.content.startsWith(prefix)) {
 		const args = message.content
-			.slice(PREFIX.length)
+			.slice(prefix.length)
 			.trim()
 			.split(/ +/);
 
@@ -293,8 +449,15 @@ client.on('message', async message => {
 			return message.channel.send(
 				`Komut dosyamda **${command}** adlı bir komut bulamadım.`
 			);
-	}
+			try {
+            client.commands.get(command).execute(client, message, args);
+
+        } catch (error){
+            console.error(error);
+	
+        }
+    }
 });
 
 /////////
-client.login('ODQ5MDIzMDk1NDQ3NzQ4NjA4.YLVIYA.nypmsJlXtt64HYJrPngoOHctCIU');
+client.login("ODQ5MDIzMDk1NDQ3NzQ4NjA4.YLVIYA.jvi4pttx8UZRdEFbCgRWhVCAeH0")

@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const db = require('quick.db')
 module.exports = {
   kod: "capslock-engel",
-async run(client, message, args){
+async execute(client, message, args){
   
   let prefix = await require('quick.db').fetch(`prefix_${message.guild.id}`) || "r!"
   if (!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send("Bu Komudu Kullanmak İçin Yeterli `Yetkiye` Sahip Değilsin!")

@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const db = require('quick.db')
 module.exports = {
-  kod: ["yardım", "help"],
+  kod: "help",
 async execute(client, message, args){
 
     //Oyuncular Şehri - ArdaDemr;
@@ -29,22 +29,22 @@ message.channel.send(embd
 .setDescription(arr[0])
 .setImage('https://cdn.discordapp.com/attachments/847971838633312276/849105429769355274/standard.gif')
 .setColor('RANDOM')
-.setFooter(`Ana Menüye Dönmek İçin 🔄 Tepkisine Tıkla`, message.author.avatarURL())
+.setFooter(`Click on 🔄 Reaction to Return to Main Menu`, message.author.avatarURL())
 .setDescription(`
-**» Bağlantılar**
-**[Destek Sunucusu](https://discord.gg/jSUTTWrrqh)** **•** **[Botu Davet Et](https://discord.com/api/oauth2/authorize?client_id=849023095447748608&permissions=8&scope=bot)** **•**
-Bir Komut Hakkında Detaylı __Yardım İçin__:
-**${prefix}yardım**
+**» Links**
+**[Support Server](https://discord.gg/jSUTTWrrqh)** **•** **[İnvite Bot](https://discord.com/api/oauth2/authorize?client_id=849023095447748608&permissions=8&scope=bot)** **•**
+Detailed __Help About a Command__:
+**${prefix}help**
 
-> 👤|Kullanıcı Komutları»Kullanıcıların Kullanabileceği Komutları Gösterir
+> 👤|User Commands»Show Commands Users Can Use!
 
-> 🛠|Yetkili Komutları»Sadece Yetkililerin Kullanabileceği Komutları Gösterir!
+> 🛠|Authorized Commands»Displays Commands That Only Authorities Can Use!
 
-> ⚙️|Ayarlamalı Komutlar»Sadece Yöneticilerin Kullanabileceği Komutları Gösterir
+> ⚙️|Configurable Commands»Shows Commands Only Admins Can Use!
 
-> 🎶|Müzik Komutları»Herkesin Kullanabileceği Müzik Komutlarını Gösterir!
+> 🎶|Music Commands»Shows Music Commands Anyone Can Use!
 
-> ⚔️|Eğlence Komutları»Herkesin Kullanabileceği Eğlence Komutlarını Gösterir
+> ⚔️|Fun Commands»Shows Fun Commands Anyone Can Use!
 `)).then(async msg => {
       await msg.react("👤");
       await msg.react("🛠");

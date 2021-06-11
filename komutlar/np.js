@@ -1,6 +1,6 @@
 module.exports = {
-  name: "np",
-  run (client, message, args) {
+  kod: "np",
+  execute (client, message, args) {
     
       const { channel } = message.member.voice;
     if (!channel) {

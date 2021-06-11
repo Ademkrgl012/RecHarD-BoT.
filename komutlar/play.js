@@ -4,18 +4,18 @@ const ytdl = require("ytdl-core");
 const YoutubeAPI = require("simple-youtube-api");
 const youtube = new YoutubeAPI(YOUTUBE_API_KEY);
 const Discord = require('discord.js')
-const { play } = require("../system/müzik.js") 
+const { play } = require("../system/music.js") 
 module.exports = {
-  kod: ["çal", "oynat"],
+  kod: ["play", "p"],
   async execute(client, message, args){
 
     const { channel } = message.member.voice;
     if (!channel) {
-      return message.channel.send("Bir Sesli Kanala Katıl");
+      return message.channel.send("Join an Audio Channel");
     }
     
     if (!args.length) {
-      return message.channel.send('Lütfen Bir Şarkı Adı Girin!')
+      return message.channel.send('Please Enter a Song Name!')
     }
 
 
@@ -26,7 +26,7 @@ module.exports = {
     const urlcheck = videoPattern.test(args[0]);
 
     if (!videoPattern.test(args[0]) && playlistPattern.test(args[0])) {
-      return message.channel.send("**Oynatma listesi oynatılamıyor.**");
+      return message.channel.send("**Unable to Play Playlist**");
     }
 
     const serverQueue = message.client.queue.get(message.guild.id);
@@ -48,7 +48,7 @@ module.exports = {
       try {
 {}         
          const result = await youtube.searchVideos(args[0], 1)
-         if(!result[0]) return message.channel.send('**Yanlış link.**')
+         if(!result[0]) return message.channel.send('**Wrong Link.**')
         songData = await ytdl.getInfo(result[0].url,{});
        
         console.log(songData)
@@ -69,7 +69,7 @@ module.exports = {
       } catch (error) {
         if (message.include === "copyright") {
           return message
-            .reply("**Bu video telif hakları nedeni ile oynatılamıyor.**")
+            .reply("**This Video Cannot Be Played Due To Copyrights.**")
             .catch(console.error);
         } else {
           console.error(error);
@@ -78,7 +78,7 @@ module.exports = {
     } else {
       try {
          const result = await youtube.searchVideos(targetsong, 1)
-        if(!result[0]) return message.channel.send('**Arama sonucu bulunamadı.**')
+        if(!result[0]) return message.channel.send('**No Search Results Found.**')
         songData = await ytdl.getInfo(result[0].url)
          song = {
            title: songData.videoDetails.title,
@@ -102,14 +102,14 @@ module.exports = {
     if(serverQueue) {
       serverQueue.songs.push(song)
       return serverQueue.textChannel.send( new Discord.MessageEmbed()
-.setAuthor('Sıraya Eklendi!',message.author.avatarURL({format : "png",dynamic : true}))
+.setAuthor('Added to Queue!',message.author.avatarURL({format : "png",dynamic : true}))
         .setTitle(song.title)
         .setURL(song.url)
         .setThumbnail(song.thumbnail)
-            .addField("🎵 Şarkı Adı", `\n**${song.title}**\n`)
+            .addField("🎵 Song Name", `\n**${song.title}**\n`)
     .setImage(song.thumbnail)
-    .addField("<:fna_youtube:852995405305741372> Şarkı Kanalı", `\n**${song.author}**\n`)
-    .addField(":timer: Şarkı Süresi", `\n**${song.duration}**\n`)
+    .addField("<:YoutubeLogoPng:852122497826816000>Song Channel", `\n**${song.author}**\n`)
+    .addField(":timer:Song Time", `\n**${song.duration}**\n`)
     .setColor('RANDOM'))
       .catch(console.error)
     } else {
@@ -127,7 +127,7 @@ module.exports = {
         console.error(`Could not join voice channel: ${error}`);
         message.client.queue.delete(message.guild.id);
         await channel.leave();
-        return message.channel.send({embed: {"description": `Kanala giriş yapamıyorum.: ${error}`, "color": "#ff0a0a"}}).catch(console.error);
+        return message.channel.send({embed: {"description": `I can't login to the channel.: ${error}`, "color": "#ff0a0a"}}).catch(console.error);
       }
     }
      //ArdaDemr Youtube kanalında paylaşılmış altyapı

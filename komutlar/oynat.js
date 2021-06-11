@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 module.exports = {
   
 
-kod: "oynat",
+name: "oynat",
 async run(client, message, args){
   if(!message.member.voice.channel) return message.channel.send('Bir Sesli Kanala Gir')
   if (!args[0]) return message.channel.send('Lütfen Bir Şarkı İsmi Girin!')

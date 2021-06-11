@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const db = require("quick.db");
 module.exports = {
-  name: "afk",
+  kod: "afk",
 async execute(client, message, args){
     if(message.channel.type=="dm") return message.channel.send("Dm'de kullanılamaz.")
         if(message.author.username.startsWith("[AFK]")) return false;

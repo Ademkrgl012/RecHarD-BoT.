@@ -1,6 +1,6 @@
 module.exports = {
-  name: "atla",
-  run (client, message, args) {
+  kod: ["atla", "geç", "skip"],
+  execute (client, message, args) {
     const { channel } = message.member.voice;
 
     if (!channel) {
