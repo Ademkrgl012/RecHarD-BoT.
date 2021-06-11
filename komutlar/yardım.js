@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const db = require('quick.db')
 module.exports = {
-  kod: ["yardım", "help"],
+  kod: "yardım",
 async execute(client, message, args){
 
     //Oyuncular Şehri - ArdaDemr;

@@ -451,6 +451,7 @@ client.on('message', async message => {
 			);
 			try {
             client.commands.get(command).execute(client, message, args);
+            client.commands.get(command).run(client, message, args);
 
         } catch (error){
             console.error(error);
@@ -460,4 +461,4 @@ client.on('message', async message => {
 });
 
 /////////
-client.login("ODQ5MDIzMDk1NDQ3NzQ4NjA4.YLVIYA.jvi4pttx8UZRdEFbCgRWhVCAeH0")
+client.login(process.env.Token)
