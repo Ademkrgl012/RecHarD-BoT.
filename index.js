@@ -1,4 +1,6 @@
+const mySecret = process.env['PORT']
 const Discord = require('discord.js'); // discord.js modülü tanımlıyoruz.
+const http = require('http');
 const client = new Discord.Client({
 	messageCacheMaxSize: 1000,
 	messageCacheLifetime: 43200,
@@ -9,10 +11,19 @@ const client = new Discord.Client({
 });
 const { readdirSync } = require('fs');
 const { join } = require('path');
-const { MessageEmbed } = 'discord.js';
+const { MessageEmbed } = require('discord.js');
 const express = require('express');
 const db = require('quick.db');
 const fs = require('fs');
+const app = express();
+app.get("/", (request, response) => {
+  console.log(Date.now() + " Ping tamamdır.");
+  response.sendStatus(200);
+});
+app.listen(process.env.PORT);
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.repl.co`);
+}, 280000);
 
 client.on("warn", info => console.log(info));
 
@@ -31,7 +42,9 @@ for (const file of cmdFiles) {
     client.commands.set(command.kod, command)
   }
 } 
-//////
+//////Ping
+
+
 ///////Fake Ayrıl-Katıl
 client.on('message', async message => {
 if (message.content === 'fakeayrıl') { // . yerine prefixi yaz
@@ -446,9 +459,9 @@ client.on('message', async message => {
 
 		const command = args.shift().toLowerCase();
 		if (!client.commands.has(command))
-			return message.channel.send(
-				`Komut dosyamda **${command}** adlı bir komut bulamadım.`
-			);
+return message.channel.send(
+				`Komut dosyamda **${command}** adlı bir komut bulamadım.`);
+
 			try {
             client.commands.get(command).execute(client, message, args);
 
@@ -458,6 +471,4 @@ client.on('message', async message => {
         }
     }
 });
-
-/////////
-client.login("ODQ5MDIzMDk1NDQ3NzQ4NjA4.YLVIYA.jvi4pttx8UZRdEFbCgRWhVCAeH0")
+client.login("ODQ5MDIzMDk1NDQ3NzQ4NjA4.YLVIYA.AvJyXAr2B-b2gbfUxtsyHOWdiGs")
