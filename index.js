@@ -14,6 +14,15 @@ const express = require('express');
 const db = require('quick.db');
 const fs = require('fs');
 const ayarlar = require('./ayarlar.json')
+const app = express();
+app.get("/", (request, response) => {
+  console.log(Date.now() + " Ping tamamdır.");
+  response.sendStatus(200);
+});
+app.listen(process.env.PORT);
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.repl.co`);
+}, 280000);
 
 client.on("warn", info => console.log(info));
 
@@ -32,9 +41,6 @@ for (const file of cmdFiles) {
     client.commands.set(command.kod, command)
   }
 } 
-//////Ping
-
-
 ///////Fake Ayrıl-Katıl
 client.on('message', async message => {
 if (message.content === 'fakeayrıl') { // . yerine prefixi yaz
@@ -96,7 +102,7 @@ client.on('guildMemberRemove', async member => {
 	const ctx = canvas.getContext('2d');
 
 	const background = await Canvas.loadImage(
-		'https://media.discordapp.net/attachments/850404341764325428/852307746971975720/PicsArt_06-10-12.50.55.jpg'
+	'https://media.discordapp.net/attachments/850404341764325428/852307746971975720/PicsArt_06-10-12.50.55.jpg'
 	);
 	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
@@ -380,7 +386,6 @@ client.on('message', message => {
 ////////yetkili-etiket/////
 client.on('message', message => {
 	if (!message.guild) return;
-	if (message.member.hasPermission('ADMINISTRATOR'))
 	var etiketler = [message.mentions.members]
 	if (etiketler < 1) return;
 	if (!db.has('yetkilietiket' + message.guild.id)) return;

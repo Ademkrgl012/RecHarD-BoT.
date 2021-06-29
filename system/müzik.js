@@ -7,7 +7,7 @@ module.exports = {
     if(!song) {
       queue.channel.leave();
       message.client.queue.delete(message.guild.id)
-      return queue.textChannel.send("Şarkı Bittiği İçin Sesli Odadan Çıktım").catch(console.error)
+      return queue.textChannel.send("Şarkı sırası şimdi sona erdi.").catch(console.error)
     }
     
     try {
@@ -47,14 +47,14 @@ module.exports = {
         new Discord.MessageEmbed()
         .setAuthor('Oynatılıyor!',message.author.avatarURL({format : "png",dynamic : true}))
         .setTitle(song.title)
-                .setTitle(song.title)
         .setURL(song.url)
         .setThumbnail(song.thumbnail)
-            .addField("🎵 Şarkı Adı", `\n**${song.title}**\n`)
-    .setImage(song.thumbnail)
-    .addField("<:fna_youtube:852995405305741372> Şarkı Kanalı", `\n**${song.author}**\n`)
-    .addField(":timer: Şarkı Süresi", `\n**${song.duration}**\n`)
-    .setColor('RANDOM')
+        .addField('Kanal',song.author,true)
+        .addField('Video Saniyesi',song.duration,true)
+        .addField('İzlenme Sayısı',song.wiews.toLocaleString(),true)
+        .addField('Like 👍',song.likes.trues,true)
+        .addField('Disslike 👎',song.likes.falses,true)
+        .setColor("ff0a0a")
       
       
       

@@ -6,16 +6,19 @@ const youtube = new YoutubeAPI(YOUTUBE_API_KEY);
 const Discord = require('discord.js')
 const { play } = require("../system/müzik.js") 
 module.exports = {
-  kod: ["çal", "oynat"],
-  async execute(client, message, args){
+  kod: "çal",
+  description: "PLAY THE SOFTNESS OF THE SOUND",
+  async execute(client, message, args) {
+
+    if (!args.length) {
+ //ArdaDemr Youtube kanalında paylaşılmış altyapı
+      return message.channel.send("**Şarkı ismi veya link girmelisin.**");
+    }
 
     const { channel } = message.member.voice;
     if (!channel) {
-      return message.channel.send("Bir Sesli Kanala Katıl");
-    }
-    
-    if (!args.length) {
-      return message.channel.send('Lütfen Bir Şarkı Adı Girin!')
+      
+      return message.channel.send("**Herhangi bir ses kanalına girmelisin.**");
     }
 
 
@@ -46,7 +49,7 @@ module.exports = {
 
     if (urlcheck) {
       try {
-{}         
+         
          const result = await youtube.searchVideos(args[0], 1)
          if(!result[0]) return message.channel.send('**Yanlış link.**')
         songData = await ytdl.getInfo(result[0].url,{});
@@ -56,7 +59,7 @@ module.exports = {
            title: songData.videoDetails.title,
            url: songData.videoDetails.video_url,
            duration: songData.videoDetails.lengthSeconds,
-           thumbnail : songData.videoDetails.thumbnails[0].url,
+           thumbnail : songData.videoDetails.thumbnail.thumbnails[0].url,
            author : songData.videoDetails.author.name,
            wiews : songData.videoDetails.viewCount,
           likes : {
@@ -84,7 +87,7 @@ module.exports = {
            title: songData.videoDetails.title,
            url: songData.videoDetails.video_url,
            duration: songData.videoDetails.lengthSeconds,
-           thumbnail : songData.videoDetails.thumbnails[0].url,
+           thumbnail : songData.videoDetails.thumbnail.thumbnails[0].url,
            author : songData.videoDetails.author.name,
            wiews : songData.videoDetails.viewCount,
           likes : {
@@ -102,15 +105,16 @@ module.exports = {
     if(serverQueue) {
       serverQueue.songs.push(song)
       return serverQueue.textChannel.send( new Discord.MessageEmbed()
-.setAuthor('Sıraya Eklendi!',message.author.avatarURL({format : "png",dynamic : true}))
+        .setAuthor('Sıraya Eklendi!',message.author.avatarURL({format : "png",dynamic : true}))
         .setTitle(song.title)
         .setURL(song.url)
         .setThumbnail(song.thumbnail)
-            .addField("🎵 Şarkı Adı", `\n**${song.title}**\n`)
-    .setImage(song.thumbnail)
-    .addField("<:fna_youtube:852995405305741372> Şarkı Kanalı", `\n**${song.author}**\n`)
-    .addField(":timer: Şarkı Süresi", `\n**${song.duration}**\n`)
-    .setColor('RANDOM'))
+        .addField('Kanal',song.author,true)
+        .addField('Şarkı Saniyesi',song.duration,true)
+        .addField('İzlenme Sayısı',song.wiews.toLocaleString(),true)
+        .addField('Like 👍',song.likes.trues,true)
+        .addField('Dislike 👎',song.likes.falses,true))
+        .setColor("ff0a0a")
       .catch(console.error)
     } else {
       queueConstruct.songs.push(song);
