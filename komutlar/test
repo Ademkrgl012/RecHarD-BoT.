@@ -1,0 +1,78 @@
+const Discord = require('discord.js');
+const client = new Discord.Client()
+const db = require('quick.db')
+const disbut = require('discord-buttons')
+
+module.exports = {
+  kod: "ya",
+async execute(client,message,args){
+  
+if(!message.guild){
+   var prefix = "r!"
+ }else if(db.has("prefix" + message.guild.id)){
+  var prefix = db.fetch("prefix" + message.guild.id)
+ }else{
+   var prefix = "r!"
+ } 
+  
+  const embed = new Discord.MessageEmbed()
+  .setTitle('**  » Rechard Bot**')
+  .setColor('RANDOM')
+  .setImage('https://cdn.discordapp.com/attachments/847971838633312276/849105429769355274/standard.gif')
+  .setDescription(`
+» Bağlantılar
+[Destek Sunucusu](https://discord.gg/jSUTTWrrqh) • [Botu Davet Et](https://discord.com/api/oauth2/authorize?client_id=849023095447748608&permissions=8&scope=bot) •
+Bir Komut Hakkında Detaylı Yardım İçin:
+${prefix}yardım
+
+
+👤|Kullanıcı Komutları»Kullanıcıların Kullanabileceği Komutları Gösterir
+
+
+
+🛠|Yetkili Komutları»Sadece Yetkililerin Kullanabileceği Komutları Gösterir!
+
+
+
+⚙|Ayarlamalı Komutlar»Sadece Yöneticilerin Kullanabileceği Komutları Gösterir
+
+
+
+🎶|Müzik Komutları»Herkesin Kullanabileceği Müzik Komutlarını Gösterir!
+
+
+
+⚔|Eğlence Komutları»Herkesin Kullanabileceği Eğlence Komutlarını Gösterir`) 
+
+
+var kullanıcı = new disbut.MessageButton()
+.setStyle('red')
+.setLabel('👤')
+.setID('subs-yes')
+
+var yetkili = new disbut.MessageButton()
+  .setStyle('green')
+  .setLabel('🛠')
+  .setID('yetkili')
+  
+  var ayarlamalı = new disbut.MessageButton()
+  .setStyle('red')
+  .setLabel('⚙')
+  .setID('ayarlamalı')
+  
+  var müzik = new disbut.MessageButton()
+  .setStyle('green')
+  .setLabel('🎶')
+  .setID('müzik')
+  
+  var eğlence = new disbut.MessageButton()
+  .setStyle('red')
+  .setLabel('⚔')
+  .setID('eğlence')
+  
+  message.channel.send({
+    buttons: [kullanıcı, yetkili, ayarlamalı, müzik, eğlence],
+    embed: embed
+  })
+  }
+}

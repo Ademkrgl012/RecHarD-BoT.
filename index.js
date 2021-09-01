@@ -1,4 +1,5 @@
 const Discord = require('discord.js'); // discord.js modülü tanımlıyoruz.
+const { keep_alive } = require("./keep_alive");
 const client = new Discord.Client({
 	messageCacheMaxSize: 1000,
 	messageCacheLifetime: 43200,
@@ -7,6 +8,7 @@ const client = new Discord.Client({
     intents: ["GUILD_MEMBERS", "GUILD_WEBHOOKS", "GUILD_VOICE_STATES", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "DIRECT_MESSAGE_TYPING", "GUILDS", "GUILD_BANS", "GUILD_EMOJIS", "GUILD_INTEGRATIONS", "GUILD_INVITES", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MESSAGE_TYPING"] 
   },
 });
+
 const { readdirSync } = require('fs');
 const { join } = require('path');
 const { MessageEmbed } = require('discord.js');
@@ -14,15 +16,7 @@ const express = require('express');
 const db = require('quick.db');
 const fs = require('fs');
 const ayarlar = require('./ayarlar.json')
-const app = express();
-app.get("/", (request, response) => {
-  console.log(Date.now() + " Ping tamamdır.");
-  response.sendStatus(200);
-});
-app.listen(process.env.PORT);
-setInterval(() => {
-  http.get(`http://${process.env.PROJECT_DOMAIN}.repl.co`);
-}, 280000);
+require('./util/eventHandler.js')(client);
 
 client.on("warn", info => console.log(info));
 
@@ -40,40 +34,245 @@ for (const file of cmdFiles) {
   } else {
     client.commands.set(command.kod, command)
   }
-} 
-///////Fake Ayrıl-Katıl
-client.on('message', async message => {
-if (message.content === 'fakeayrıl') { // . yerine prefixi yaz
-  client.emit('guildMemberRemove', message.member || await message.guild.fetchMember(message.author));
-    }
+}
+//////Bot Dm/////
+client.on("message", msg => {
+  var dm = client.channels.cache.get("864832486373326859");
+  if (msg.channel.type === "dm") {
+    if (msg.author.id === client.user.id) return;
+    const botdm = new Discord.MessageEmbed()
+      .setTitle(`${client.user.username} Dm`)
+      .setTimestamp()
+      .setColor("RANDOM")
+      .setThumbnail(`${msg.author.avatarURL()}`)
+      .addField("Gönderen", msg.author.tag)
+      .addField("Gönderen ID", msg.author.id)
+      .addField("Gönderilen Mesaj", msg.content);
+
+    dm.send(botdm);
+  }
+  if (msg.channel.bot) return;
+});  
+//////Yapay-Zeka
+client.on("message", async message => {
+  const Database = require("plasma-db");
+const db = new Database("./database1.json"); 
+  const ai = require('@codare/codare.ai')
+let kanal = db.fetch(`yapayzekakanal_${message.guild.id}`)
+if(!kanal) return;
+if(message.channel.id !== kanal) return;
+if(message.author.bot == true) return;
+let soru = message.content;
+ai.sor(soru).then(enginar => {
+return message.channel.send(enginar) 
 });
+})
 
-client.on('message', async message => {
-if (message.content === 'fakekatıl') { // . yerine prefixi yaz
-  client.emit('guildMemberAdd', message.member || await message.guild.fetchMember(message.author));
-    }
-});
-////////
-client.on('ready', async ready => {
-	console.log(`${client.user.tag} Adlı Botum Aktif`);
+//////Yardım
+const disbut = 
+require('discord-buttons')
+disbut(client);
+const kullanıcı1 = new MessageEmbed()
+.setTitle(`Rechard Bot Kullanıcı Komutları`)
+.setColor("RANDOM")
+.setDescription(`
+> 👤|r!afk: Afk Olursunuz.(Daha Gelmedi!)
 
-	var randomMesajlar = [
-		'YAPIM AŞAMASINDA',
-		'r!yardım',
-		'r!davet',
-		'Sahibim: Adem BUT Yalnız Olan#1881',
-		'İngilizce Desteği Geliyor Beklemede Kal :)'
-	];
-	setInterval(function() {
-		var randomMesajlar1 =
-			randomMesajlar[Math.floor(Math.random() * randomMesajlar.length)];
-		client.user.setActivity(`${randomMesajlar1}`);
-	}, 2 * 2500);
+> 👤|r!avatar: Avatarınızı Gösterir.`)
 
-	client.user.setStatus('idle');
-});
+const yetkili1 = new MessageEmbed()
+.setTitle('Rechard Bot Yetkili Komutları')
+.setColor('RANDOM')
+.setDescription(`
+🛠|Yetkili Komutları Bir Süre Boyunca Ekli Olmayacaktır Fakat Daha Sonra Eklenecektir`)
 
-/////////KOMUTLAR;
+const ayarlamalı1 = new MessageEmbed()
+.setTitle('Rechard Bot Ayarlamalı Komutlar')
+.setColor('RANDOM')
+.setDescription(`
+⚙️|r!sa-as: Oto sa-ası Ayarlar.
+
+⚙️|r!prefix-ayarla: Botun Prefixini Ayarlar.
+
+⚙️|r!yetkili-etiket: Üyelerin Yetkilileri Etiketlemesini Engeller
+
+⚙️|r!reklam-engel: Yönetici Yetkisine Sahip Olmayan Üyelerin Reklam Yapmasını Engeller.
+
+⚙️|r!gç-ayarla: Resimli Giriş Çıkışı Ayarlar.
+
+⚙️|r!gç-sıfırla: Resimli Giriş Çıkışı Kapatır.
+
+⚙️|r!capslock-engel: Üyelerin Büyük Harf Kullanmasını Engeller.
+`)
+
+const müzik1 = new MessageEmbed()
+.setTitle('Rechard Bot Müzik Komutları')
+.setColor('RANDOM')
+.setDescription(`
+🎶|r!çal: İsmini Yazdığınız Şarkıyı Çalar.
+
+🎶|r!durdur: Çalınan Şarkıyı Durdurur.
+
+🎶|r!devam: Durdurulan Şarkıyı Devam Ettirir.
+
+🎶|r!atla: Çalınan Şarkıyı Geçer.
+
+🎶|r!kuyruk: Şarkı Kuyruğunu Gösterir.
+
+🎶|r!np: Çalınan Şarkıyı Gösterir.
+
+🎶|r!ayrıl: Botu Ses Kanalından Çıkartırsınız.
+            `)
+
+const eğlence1 = new MessageEmbed()
+.setTitle('Rechard Bot Eğlence Komutları')
+.setColor('RANDOM')
+.setDescription(`
+⚔️|r!token: Botun Tokenini Öğrenirsiniz
+
+⚔️|r!korona: Türkiyenin Korona Tablosunu Gösterir
+            `)
+            
+const kullanıcı = new disbut.MessageButton()
+.setStyle('red')
+.setLabel('👤')
+.setID('click_to_function')
+
+  const yetkili = new disbut.MessageButton()
+  .setStyle('green')
+  .setLabel('🛠')
+  .setID('click_to_function1')
+  
+  const ayarlamalı = new disbut.MessageButton()
+  .setStyle('red')
+  .setLabel('⚙')
+  .setID('click_to_function2')
+  
+  const müzik = new disbut.MessageButton()
+  .setStyle('green')
+  .setLabel('🎶')
+  .setID('click_to_function3')
+  
+  const eğlence = new disbut.MessageButton()
+  .setStyle('red')
+  .setLabel('⚔')
+  .setID('click_to_function4')
+  
+  const baş = new disbut.MessageButton()
+  .setStyle('green')
+  .setLabel('🔄')
+  .setID('baş')
+
+const baş1 = new Discord.MessageEmbed()
+  .setTitle('**  » Rechard Bot**')
+  .setColor('RANDOM')
+  .setImage('https://cdn.discordapp.com/attachments/847971838633312276/849105429769355274/standard.gif')
+  .setDescription(`
+» Bağlantılar
+[Destek Sunucusu](https://discord.gg/jSUTTWrrqh) • [Botu Davet Et](https://discord.com/api/oauth2/authorize?client_id=849023095447748608&permissions=8&scope=bot) •
+Bir Komut Hakkında Detaylı Yardım İçin:
+r!yardım
+
+
+👤|Kullanıcı Komutları»Kullanıcıların Kullanabileceği Komutları Gösterir
+
+
+
+🛠|Yetkili Komutları»Sadece Yetkililerin Kullanabileceği Komutları Gösterir!
+
+
+
+⚙|Ayarlamalı Komutlar»Sadece Yöneticilerin Kullanabileceği Komutları Gösterir
+
+
+
+🎶|Müzik Komutları»Herkesin Kullanabileceği Müzik Komutlarını Gösterir!
+
+
+
+⚔|Eğlence Komutları»Herkesin Kullanabileceği Eğlence Komutlarını Gösterir`)
+
+client.on('message', async (message) => {
+  
+if (message.content.startsWith('r!yardım')){
+   const embed = new Discord.MessageEmbed()
+  .setTitle('**  » Rechard Bot**')
+  .setColor('RANDOM')
+  .setImage('https://cdn.discordapp.com/attachments/847971838633312276/849105429769355274/standard.gif')
+  .setDescription(`
+» Bağlantılar
+[Destek Sunucusu](https://discord.gg/jSUTTWrrqh) • [Botu Davet Et](https://discord.com/api/oauth2/authorize?client_id=849023095447748608&permissions=8&scope=bot) •
+Bir Komut Hakkında Detaylı Yardım İçin:
+r!yardım
+
+
+👤|Kullanıcı Komutları»Kullanıcıların Kullanabileceği Komutları Gösterir
+
+
+
+🛠|Yetkili Komutları»Sadece Yetkililerin Kullanabileceği Komutları Gösterir!
+
+
+
+⚙|Ayarlamalı Komutlar»Sadece Yöneticilerin Kullanabileceği Komutları Gösterir
+
+
+
+🎶|Müzik Komutları»Herkesin Kullanabileceği Müzik Komutlarını Gösterir!
+
+
+
+⚔|Eğlence Komutları»Herkesin Kullanabileceği Eğlence Komutlarını Gösterir`)
+  
+  message.channel.send({
+   button: [kullanıcı, yetkili, ayarlamalı, müzik, eğlence],
+    embed: embed
+  })
+  }
+})
+  
+client.on('clickButton', async (button) => {
+  
+  if (button.id === 'click_to_function') {
+  button.message.edit({
+   button: [kullanıcı, yetkili, ayarlamalı, müzik, eğlence],
+    embed: kullanıcı1
+  })
+  }
+    if (button.id === 'click_to_function1') {
+    button.message.edit({
+   button: [kullanıcı, yetkili, ayarlamalı, müzik, eğlence],
+      embed: yetkili1
+    })
+  }
+  if (button.id === 'click_to_function2') {
+    button.message.edit({
+   button: [kullanıcı, yetkili, ayarlamalı, müzik, eğlence],
+      embed: ayarlamalı1
+    })
+  }
+  if (button.id === 'click_to_function3') {
+    button.message.edit({
+   button: [kullanıcı, yetkili, ayarlamalı, müzik, eğlence],
+      embed: müzik1
+    })
+  }
+  if (button.id === 'click_to_function4') {
+    button.message.edit({
+   button: [kullanıcı, yetkili, ayarlamalı, müzik, eğlence],
+      embed: eğlence1
+    })
+  }
+  if (button.id === 'baş') {
+    button.message.edit({
+      button:[kullanıcı, yetkili, ayarlamalı, müzik, eğlence],
+      embed: baş1
+    })
+  }
+})
+/////////
+
+////////KOMUTLAR;
 
 ///////CANVASLI-GİRIŞ-ÇIKIŞ
 client.on('guildMemberRemove', async member => {
@@ -331,7 +530,7 @@ client.on('guildMemberAdd', async member => {
 		return canvaskanal.send(` ${member.user.tag}, Bot Joined the Server!`);
 });
 ///////sa-as//////
-client.on('message', message => {
+   client.on('message', message => {
 	if (!message.guild) return;
 	if (!db.has('sa' + message.guild.id)) return;
 	if (
@@ -437,6 +636,9 @@ client.on('message', async msg => {
 	}
 });
 /////////
+
+
+/////
 client.on('message', async message => {
 	if (message.author.bot) return;
 	if (!message.guild) {
@@ -454,8 +656,7 @@ client.on('message', async message => {
 
 		const command = args.shift().toLowerCase();
 		if (!client.commands.has(command))
-return message.channel.send(
-				`Komut dosyamda **${command}** adlı bir komut bulamadım.`);
+return;
 
 			try {
             client.commands.get(command).execute(client, message, args);
@@ -465,5 +666,5 @@ return message.channel.send(
 	
         }
     }
-});
-client.login(ayarlar.Token)
+})
+client.login("")

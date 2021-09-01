@@ -92,20 +92,14 @@ Bir Komut Hakkında Detaylı __Yardım İçin__:
             if (page == arr.length) return;
             ++page
             reaction.users.remove(user).catch(console.error);
-              embd.setTitle(`Rechard Bot Kullanıcı Komutları`)
-              embd.setColor("RANDOM");
-              embd.setDescription(`
-> 👤|${prefix}afk: Afk Olursunuz.
 
-> 👤|${prefix}avatar: Avatarınızı Gösterir.
-              `)
             msg.edit(embd)
           break;
           case "🛠":
           if (page == arr.lenght) return;
             ++page
             reaction.users.remove(user).catch(console.error)
-            embd.setTitle('Rechard Bot Yetkili Komutları')
+   embd.setTitle('Rechard Bot Yetkili Komutları')
             embd.setColor('RANDOM')
             embd.setDescription(`
 🛠|Yetkili Komutları Bir Süre Boyunca Ekli Olmayacaktır Fakat Daha Sonra Eklenecektir`)
@@ -116,7 +110,7 @@ Bir Komut Hakkında Detaylı __Yardım İçin__:
             return;
             ++page
             reaction.users.remove(user).catch(console.error)
-            embd.setTitle('Rechard Bot Ayarlamalı Komutlar')
+   embd.setTitle('Rechard Bot Ayarlamalı Komutlar')
             embd.setColor('RANDOM')
             embd.setFooter(`Ana Menüye Dönmek İçin 🔄 Tepkisine Tıkla`, message.author.avatarURL())
             embd.setDescription(`
@@ -165,7 +159,7 @@ Bir Komut Hakkında Detaylı __Yardım İçin__:
             return;
             ++page
             reaction.users.remove(user).catch(console.error)
-            embd.setTitle('Rechard Bot Eğlence Komutları')
+   embd.setTitle('Rechard Bot Eğlence Komutları')
             embd.setColor('RANDOM')
             embd.setDescription(`
 ⚔️|${prefix}token: Botun Tokenini Öğrenirsiniz

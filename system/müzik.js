@@ -39,7 +39,7 @@ module.exports = {
         module.exports.play(queue.songs[0], message)
       }
     }).on("error", console.error)
-    dispatcher.setVolumeLogarithmic(queue.volume / 100); //Sesi buradan arttırabilirsiniz.
+    dispatcher.setVolumeLogarithmic(queue.volume / 125); //Sesi buradan arttırabilirsiniz.
     
     
     
@@ -55,11 +55,7 @@ module.exports = {
         .addField('Like 👍',song.likes.trues,true)
         .addField('Disslike 👎',song.likes.falses,true)
         .setColor("ff0a0a")
-      
-      
-      
-      )
     
-    
+    )
   }
 }
